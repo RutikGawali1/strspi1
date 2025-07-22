@@ -1,61 +1,78 @@
-# 🚀 Getting started with Strapi
 
-Strapi comes with a full featured [Command Line Interface](https://docs.strapi.io/dev-docs/cli) (CLI) which lets you scaffold and manage your project in seconds.
+# 🚀 Strapi App – Headless CMS Powered by Node.js
 
-### `develop`
+Welcome to your Strapi project! Strapi is an open-source, customizable headless CMS that enables content-rich applications to be built with ease.
 
-Start your Strapi application with autoReload enabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-develop)
+---
 
-```
+## 📦 Getting Started
+
+Strapi comes with a full-featured [CLI](https://docs.strapi.io/dev-docs/cli) to scaffold, build, and manage your application.
+
+### 🔄 Development Mode
+
+Start your application with hot-reload:
+
+```bash
 npm run develop
 # or
 yarn develop
 ```
 
-### `start`
+### 🚀 Production Mode
 
-Start your Strapi application with autoReload disabled. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-start)
+Run the app in production (autoReload **disabled**):
 
-```
+```bash
 npm run start
 # or
 yarn start
 ```
 
-### `build`
+### 🛠️ Build Admin Panel
 
-Build your admin panel. [Learn more](https://docs.strapi.io/dev-docs/cli#strapi-build)
+Build the admin UI for deployment:
 
-```
+```bash
 npm run build
 # or
 yarn build
 ```
 
-## ⚙️ Deployment
+---
 
-Strapi gives you many possible deployment options for your project including [Strapi Cloud](https://cloud.strapi.io). Browse the [deployment section of the documentation](https://docs.strapi.io/dev-docs/deployment) to find the best solution for your use case.
+## ⚙️ Deployment Options
 
-```
+Strapi supports multiple deployment targets (including AWS, Docker, Heroku, etc.).  
+Visit the official [deployment guide](https://docs.strapi.io/dev-docs/deployment) for more details.
+
+```bash
+# Example (if using Strapi Cloud)
 yarn strapi deploy
 ```
 
-## 📚 Learn more
-
-- [Resource center](https://strapi.io/resource-center) - Strapi resource center.
-- [Strapi documentation](https://docs.strapi.io) - Official Strapi documentation.
-- [Strapi tutorials](https://strapi.io/tutorials) - List of tutorials made by the core team and the community.
-- [Strapi blog](https://strapi.io/blog) - Official Strapi blog containing articles made by the Strapi team and the community.
-- [Changelog](https://strapi.io/changelog) - Find out about the Strapi product updates, new features and general improvements.
-
-Feel free to check out the [Strapi GitHub repository](https://github.com/strapi/strapi). Your feedback and contributions are welcome!
-
-## ✨ Community
-
-- [Discord](https://discord.strapi.io) - Come chat with the Strapi community including the core team.
-- [Forum](https://forum.strapi.io/) - Place to discuss, ask questions and find answers, show your Strapi project and get feedback or just talk with other Community members.
-- [Awesome Strapi](https://github.com/strapi/awesome-strapi) - A curated list of awesome things related to Strapi.
+> For Docker deployment, be sure to include your `Dockerfile` and `docker-compose.yml`.
 
 ---
 
-<sub>🤫 Psst! [Strapi is hiring](https://strapi.io/careers).</sub>
+## 📚 Learn More
+
+- 📘 [Strapi Documentation](https://docs.strapi.io)
+- 🧠 [Resource Center](https://strapi.io/resource-center)
+- 🎓 [Tutorials](https://strapi.io/tutorials)
+- 📝 [Changelog](https://strapi.io/changelog)
+- 🔨 [Strapi GitHub](https://github.com/strapi/strapi)
+
+---
+
+## ✨ Community
+
+- 💬 [Discord](https://discord.strapi.io)
+- 🧵 [Forum](https://forum.strapi.io/)
+- 🧩 [Awesome Strapi](https://github.com/strapi/awesome-strapi)
+
+---
+
+> 💼 _Psst! [Strapi is hiring](https://strapi.io/careers)._
+
+
