@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "strapi_sg" {
-  name        = "strapi-app-sg"
+  name        = "strapi-app-sg-2"
   description = "Allow SSH, HTTP, HTTPS, and Strapi"
 
   ingress {
@@ -88,6 +88,4 @@ resource "aws_instance" "strapi" {
   }
 }
 
-output "strapi_instance_ip" {
-  value = aws_instance.strapi.public_ip
-}
+
