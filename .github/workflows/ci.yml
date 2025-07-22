@@ -1,0 +1,48 @@
+name: CI – Build & Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+      - rutik
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    env:
+      IMAGE_NAME: strapi-monitor  # GHCR image name
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract short SHA
+        id: vars
+        run: |
+          echo "sha_short=${GITHUB_SHA::7}" >> "$GITHUB_OUTPUT"
+
+      - name: Build image from strapi-app
+        run: |
+          docker build \
+            -t ghcr.io/rutik/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.sha_short } } \
+            ./strapi-app
+
+      - name: Push image to GHCR
+        run: |
+          docker push ghcr.io/rutik/${{ env.IMAGE_NAME }}:${{ steps.vars.outputs.sha_short }}
+
+      - name: Output image tag
+        run: |
+          echo "Image tag: ${{ steps.vars.outputs.sha_short }}"
