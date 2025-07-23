@@ -19,6 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+<<<<<<< HEAD
       - name: Download image tag artifact
         uses: dawidd6/action-download-artifact@v3
         with:
@@ -30,6 +31,11 @@ jobs:
       - name: Read image tag
         id: image_tag
         run: echo "tag=$(cat image-tag.txt)" >> $GITHUB_OUTPUT
+=======
+      - name: Set image tag from triggering commit SHA
+        id: image_tag
+        run: echo "tag=${{ github.event.workflow_run.head_sha }}" >> $GITHUB_OUTPUT
+>>>>>>> 5b9f88b (Readme update)
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2

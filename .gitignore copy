@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ############################
 # OS X
 ############################
@@ -130,6 +129,3 @@ dist
 build
 .strapi-updater.json
 .strapi-cloud.json
-=======
-node_modules
->>>>>>> 5b9f88b (Readme update)
