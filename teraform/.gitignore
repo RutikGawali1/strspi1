@@ -8,7 +8,7 @@ crash.log
  
 # Terraform variable overrides (optional, if you use them)
 override.tf
-override.tf.json
+override.tf.jsongit rm -r --cached .terraform
 *_override.tf
 *_override.tf.json
  
