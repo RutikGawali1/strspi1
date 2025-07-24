@@ -1,23 +1,24 @@
 # Use official Node.js image
 FROM node:22-alpine
 
-# Set working directory
+# Create app directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package files and install dependencies
 COPY package*.json ./
+RUN npm install
 
-# Install dependencies
-RUN npm install --production
+# Install better-sqlite3 for SQLite support
+RUN npm install better-sqlite3 --save
 
-# Copy the rest of the application code
+# Copy rest of the application
 COPY . .
 
-# Build the Strapi admin panel
+# Build admin panel (if not built yet)
 RUN npm run build
 
 # Expose the default Strapi port
 EXPOSE 1337
 
-# Start the Strapi app
-CMD ["npm", "run", "start"]
+# Start the app
+CMD ["npm", "start"]
