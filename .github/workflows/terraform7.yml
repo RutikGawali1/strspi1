@@ -53,6 +53,11 @@ jobs:
       run: |
         echo 'docker_image = "${{ env.IMAGE_URI }}"' > terraform7/auto.tfvars
 
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.7.5
+
     - name: Terraform Init
       working-directory: terraform7
       run: terraform init
