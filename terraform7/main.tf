@@ -28,7 +28,7 @@ resource "aws_cloudwatch_log_group" "strapi" {
 
 # ALB Security Group
 resource "aws_security_group" "alb_sg" {
-  name        = "alb-sg"
+  name        = "alb-sg-rutik"
   description = "Allow HTTP access to ALB"
   vpc_id      = data.aws_vpc.default.id
 
