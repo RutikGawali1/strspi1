@@ -118,7 +118,7 @@ resource "aws_ecs_task_definition" "strapi" {
 
 # ALB
 resource "aws_lb" "strapi" {
-  name               = "strapi-alb-rutik"
+  name               = "strapi-alb-rutik-terraform7"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
@@ -127,7 +127,7 @@ resource "aws_lb" "strapi" {
 
 # Target Group
 resource "aws_lb_target_group" "strapi" {
-  name        = "strapi-tg"
+  name        = "strapi-tg-rutik"
   port        = var.app_port
   protocol    = "HTTP"
   target_type = "ip"
