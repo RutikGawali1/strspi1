@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'terraform7/**'
-      - '.github/workflows/task7.yml'
+      - '.github/workflows/terraform7.yml'
       - 'Dockerfile'
       - '**/package.json'
       - '**/*.ts'
@@ -20,7 +20,7 @@ env:
 
 jobs:
   deploy:
-    name: ECS Deploy for Task 7
+    name: ECS Deploy for terraform7
     runs-on: ubuntu-latest
 
     steps:
