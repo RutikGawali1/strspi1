@@ -7,7 +7,7 @@ data "aws_vpc" "default" {
   default = true
 }
 
-# Default Subnets
+# Default Subnets (IDs)
 data "aws_subnets" "default" {
   filter {
     name   = "vpc-id"
@@ -15,20 +15,27 @@ data "aws_subnets" "default" {
   }
 }
 
-# Use 2 subnets for ALB
-locals {
-  unique_subnets_for_alb = slice(data.aws_subnets.default.ids, 0, 2)
+# Subnet details (for AZ info)
+data "aws_subnet" "details" {
+  for_each = toset(data.aws_subnets.default.ids)
+  id       = each.value
 }
 
-# CloudWatch Log Group
-resource "aws_cloudwatch_log_group" "strapi" {
-  name              = "/ecs/strapi-rutik-t7"
-  retention_in_days = 7
+# Use 1 subnet per AZ for ALB
+locals {
+  az_subnet_map = {
+    for subnet_id, subnet in data.aws_subnet.details :
+    subnet.availability_zone => subnet.id...
+  }
+
+  unique_subnets_for_alb = [
+    for az, subnets in local.az_subnet_map : subnets[0]
+  ]
 }
 
 # ALB Security Group
 resource "aws_security_group" "alb_sg" {
-  name        = "alb-sg-rutik-t7"
+  name        = "alb-sg-rutik-t8"
   description = "Allow HTTP access to ALB"
   vpc_id      = data.aws_vpc.default.id
 
@@ -49,7 +56,7 @@ resource "aws_security_group" "alb_sg" {
 
 # ECS Task Security Group
 resource "aws_security_group" "ecs_sg" {
-  name        = "ecs-sg-rutik-t7"
+  name        = "ecs-sg-rutik-t8"
   description = "Allow ALB to reach ECS tasks"
   vpc_id      = data.aws_vpc.default.id
 
@@ -70,12 +77,13 @@ resource "aws_security_group" "ecs_sg" {
 
 # ECS Cluster
 resource "aws_ecs_cluster" "strapi" {
-  name = "rutik-cluster-t7"
+  name = "rutik-cluster-t8"
 }
+
 
 # ECS Task Definition
 resource "aws_ecs_task_definition" "strapi" {
-  family                   = "strapi-task-t7"
+  family                   = "strapi-task-t8"
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
   cpu                      = "512"
@@ -102,7 +110,7 @@ resource "aws_ecs_task_definition" "strapi" {
     logConfiguration = {
       logDriver = "awslogs",
       options = {
-        awslogs-group         = "/ecs/strapi-rutik-t7"
+        awslogs-group         = "/ecs/strapi-rutik-t8"
         awslogs-region        = var.region
         awslogs-stream-prefix = "strapi"
       }
@@ -112,9 +120,9 @@ resource "aws_ecs_task_definition" "strapi" {
   depends_on = [aws_cloudwatch_log_group.strapi]
 }
 
-# ALB
+# Application Load Balancer
 resource "aws_lb" "strapi" {
-  name               = "strapi-alb-rutik-t7"
+  name               = "strapi-alb-rutik-t8"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb_sg.id]
@@ -123,7 +131,7 @@ resource "aws_lb" "strapi" {
 
 # Target Group
 resource "aws_lb_target_group" "strapi" {
-  name        = "strapi-tg-rutik-t7"
+  name        = "strapi-tg-rutik-t8"
   port        = var.app_port
   protocol    = "HTTP"
   target_type = "ip"
@@ -139,7 +147,7 @@ resource "aws_lb_target_group" "strapi" {
   }
 }
 
-# Listener
+# ALB Listener
 resource "aws_lb_listener" "strapi" {
   load_balancer_arn = aws_lb.strapi.arn
   port              = 80
@@ -153,7 +161,7 @@ resource "aws_lb_listener" "strapi" {
 
 # ECS Fargate Service
 resource "aws_ecs_service" "strapi" {
-  name            = "strapi-service-t7"
+  name            = "strapi-service-t8"
   cluster         = aws_ecs_cluster.strapi.id
   task_definition = aws_ecs_task_definition.strapi.arn
   launch_type     = "FARGATE"
