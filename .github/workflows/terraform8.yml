@@ -1,10 +1,10 @@
-name: Deploy Strapi - terraform7
+name: Deploy Strapi - terraform8
 
 on:
   push:
     paths:
-      - 'terraform7/**'
-      - '.github/workflows/terraform7.yml'
+      - 'terraform8/**'
+      - '.github/workflows/terraform8.yml'
       - 'Dockerfile'
       - '**/package.json'
       - '**/*.ts'
@@ -20,7 +20,7 @@ env:
 
 jobs:
   deploy:
-    name: ECS Deploy for terraform7
+    name: ECS Deploy for terraform8
     runs-on: ubuntu-latest
 
     steps:
@@ -49,9 +49,9 @@ jobs:
 
         echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
 
-    - name: Override docker_image in terraform7/auto.tfvars
+    - name: Override docker_image in terraform8/auto.tfvars
       run: |
-        echo 'docker_image = "${{ env.IMAGE_URI }}"' > terraform7/auto.tfvars
+        echo 'docker_image = "${{ env.IMAGE_URI }}"' > terraform8/auto.tfvars
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
@@ -59,9 +59,9 @@ jobs:
         terraform_version: 1.7.5
 
     - name: Terraform Init
-      working-directory: terraform7
+      working-directory: terraform8
       run: terraform init
 
     - name: Terraform Apply
-      working-directory: terraform7
+      working-directory: terraform8
       run: terraform apply -auto-approve
