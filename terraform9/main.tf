@@ -118,7 +118,7 @@ resource "aws_ecs_task_definition" "strapi" {
       { name = "APP_KEYS", value = "Rd4EZ4S13CKp1JlAMzxk5A==,R4GDtWxkpBkJuK2Aq4Pv7g==,Q7df6Erx8xr6N6QFwlT4ig==,DUQwEBTNfE5qamNS1y97Xw==" },
       { name = "API_TOKEN_SALT", value = "y6QBwgHTWetn4KoRl7MDTA==" },
       { name = "ADMIN_JWT_SECRET", value = "IbscCljtmC/t/KWWOFYOAg==" },
-      { name = "STRAPI_ENABLE_CONTENT_TYPE_BUILDER", value = "true" }
+      { name = "VITE_SERVER_ALLOWED_HOSTS", value = aws_lb.strapi.dns_name }
     ],
     logConfiguration = {
       logDriver = "awslogs",

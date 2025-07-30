@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install --production
+RUN npm install 
 
 # Copy the rest of the application code
 COPY . .
@@ -20,4 +20,4 @@ RUN npm run build
 EXPOSE 1337
 
 # Start the Strapi app
-CMD ["npm", "run", "start","develop"]
+CMD ["npm", "run", "start"]
