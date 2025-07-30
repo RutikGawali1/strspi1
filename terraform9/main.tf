@@ -92,11 +92,6 @@ resource "aws_ecs_cluster_capacity_providers" "strapi_cp" {
   }
 }
 
-# CloudWatch Log Group
-resource "aws_cloudwatch_log_group" "strapi" {
-  name              = "/ecs/strapi-rutik-t9"
-  retention_in_days = 7
-}
 
 # ECS Task Definition
 resource "aws_ecs_task_definition" "strapi" {
