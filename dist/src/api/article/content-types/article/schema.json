@@ -11,11 +11,11 @@
     },
     "pluginOptions": {},
     "attributes": {
+        "Myfristartical": {
+            "type": "string"
+        },
         "published": {
             "type": "boolean"
-        },
-        "Article": {
-            "type": "string"
         }
     }
 }
