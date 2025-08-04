@@ -1,4 +1,4 @@
-name: Terraform with ECS Blue/Green Deployment
+name: Terraform with Blue/Green Deployment
 
 on:
   workflow_run:
