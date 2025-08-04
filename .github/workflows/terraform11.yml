@@ -1,0 +1,73 @@
+name: Terraform with ECS Blue/Green Deployment
+
+on:
+  workflow_run:
+    workflows: [Dockerize and Push to ECR]
+    types:
+      - completed
+
+env:
+  AWS_ACCOUNT_ID: 607700977843
+  AWS_REGION: us-east-2
+  ECR_REPOSITORY: strapi-app-rutik
+  ECR_REGISTRY: 607700977843.dkr.ecr.us-east-2.amazonaws.com
+  IMAGE_TAG: latest
+
+jobs:
+  terraform:
+    name: Apply Terraform Infrastructure
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./terraform11
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download Terraform State (if available)
+        uses: actions/download-artifact@v4
+        with:
+          name: terraform-state
+          path: ./terraform11
+        continue-on-error: true
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform CLI
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        id: plan
+        run: |
+          terraform plan -no-color -input=false \
+            -var="region=${{ env.AWS_REGION }}" \
+            -var="ecs_task_execution_role_arn=${{ secrets.ECS_ROLE_ARN }}" \
+            -var="image_uri=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
+
+      - name: Terraform Apply
+        run: |
+          terraform apply -auto-approve -input=false \
+            -var="region=${{ env.AWS_REGION }}" \
+            -var="ecs_task_execution_role_arn=${{ secrets.ECS_ROLE_ARN }}" \
+            -var="image_uri=${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"
+
+      - name: Upload Terraform State
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: terraform-state
+          path: ./terraform11/terraform.tfstate
+          retention-days: 30
