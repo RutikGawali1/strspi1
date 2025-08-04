@@ -18,6 +18,10 @@
     "@strapi/plugin-cloud": "5.18.1",
     "@strapi/plugin-users-permissions": "5.18.1",
     "@strapi/strapi": "5.18.1",
+<<<<<<< HEAD
+=======
+    "better-sqlite3": "^12.2.0",
+>>>>>>> f4a04ae (Implemented Blue/Green deployment strategy)
     "pg": "^8.16.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",

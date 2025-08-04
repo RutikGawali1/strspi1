@@ -1,5 +1,10 @@
 {
 	"latest": "5.19.0",
+<<<<<<< HEAD
 	"lastUpdateCheck": 1753298496674,
 	"lastNotification": 1753298568703
+=======
+	"lastUpdateCheck": 1753860938765,
+	"lastNotification": 1753860990518
+>>>>>>> f4a04ae (Implemented Blue/Green deployment strategy)
 }

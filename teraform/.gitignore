@@ -8,7 +8,11 @@ crash.log
  
 # Terraform variable overrides (optional, if you use them)
 override.tf
+<<<<<<< HEAD
 override.tf.jsongit rm -r --cached .terraform
+=======
+override.tf.json
+>>>>>>> f4a04ae (Implemented Blue/Green deployment strategy)
 *_override.tf
 *_override.tf.json
  

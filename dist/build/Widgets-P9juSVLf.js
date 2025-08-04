@@ -1,0 +1,3 @@
+import{a4 as o,j as a,e as r,a5 as l,T as n,a6 as m,k as p}from"./strapi-D5wh4Tyg.js";import{g as c,a as g}from"./users-DLc-PG84.js";const x=p(n)`
+  font-size: 2.4rem;
+`,u=()=>{const e=o("User",s=>s.user),t=c(e),i=g(e);return a.jsxs(r,{direction:"column",gap:3,height:"100%",justifyContent:"center",children:[a.jsx(l.Item,{delayMs:0,fallback:i}),t&&a.jsx(x,{fontWeight:"bold",textTransform:"none",textAlign:"center",children:t}),e?.email&&a.jsx(n,{variant:"omega",textColor:"neutral600",children:e?.email}),e?.roles?.length&&a.jsx(r,{marginTop:2,gap:1,wrap:"wrap",children:e?.roles?.map(s=>a.jsx(m,{children:s.name},s.id))})]})};export{u as ProfileWidget};

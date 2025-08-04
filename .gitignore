@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ############################
 # OS X
 ############################
@@ -158,3 +159,6 @@ override.tf.json
 *.terraform.lock.hcl
 *.terraform.tfstate.backup
 !terraform.tfvars  # (if you want to keep the main tfvars in git, remove this line if not)
+=======
+node_modules
+>>>>>>> f4a04ae (Implemented Blue/Green deployment strategy)
